@@ -5,7 +5,7 @@ submodule:
 		g++ -c ./callbacks/callBacks.cpp
 
 main:
-		g++ -o main main.cpp ./res/particleSystem/mouse.cpp ./buffers/IndexBuffer.cpp ./buffers/VertexBuffer.cpp ./layout/VertexArray.cpp ./objects/GenerateObject.cpp  callBacks.o particles.o -lglut -lGLEW -lglfw -lGLU -lGL -lpthread -lX11 -lrt
+		g++ -o main main.cpp ./res/particleSystem/mouse.cpp ./renderer/buffers/IndexBuffer.cpp ./renderer/buffers/VertexBuffer.cpp ./renderer/layout/VertexArray.cpp ./renderer/objects/GenerateObject.cpp  callBacks.o particles.o -lglut -lGLEW -lglfw -lGLU -lGL -lpthread -lX11 -lrt
 		clear
 
 
