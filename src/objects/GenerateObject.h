@@ -1,3 +1,6 @@
+#ifndef GENERATE_OBJECT_INCLUDE
+#define GENERATE_OBJECT_INCLUDE
+
 #include <stdio.h>
 #include <glm/glm.hpp>
 #include <GLFW/glfw3.h>
@@ -15,3 +18,4 @@ public:
     float *createRectangle(float x0, float y0, float x1, float y1);
     inline unsigned int* GetRectangleIndices(){return rectangleindices;};
 };
+#endif

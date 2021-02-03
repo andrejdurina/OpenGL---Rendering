@@ -1,4 +1,5 @@
-
+#ifndef VERTEX_BUFFER_INCLUDED
+#define VERTEX_BUFFER_INCLUDED
 
 class VertexBuffer
 {
@@ -13,3 +14,5 @@ public:
     void Bind() const;
     void Unbind() const;
 };
+
+#endif

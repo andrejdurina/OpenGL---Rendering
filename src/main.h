@@ -15,7 +15,14 @@
 
 #include "callbacks/callBacks.hpp"
 
-#include "GenerateObject.h"
+#include "objects/GenerateObject.h"
 #include "res/texture/texture.h"
 #include "res/shaders/shader.h"
 #include "res/particleSystem/particles.hpp"
+
+#include "buffers/VertexBuffer.h"
+#include "buffers/IndexBuffer.h"
+#include "layout/VertexArray.h"
+
+
+

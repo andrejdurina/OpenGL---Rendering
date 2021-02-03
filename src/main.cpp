@@ -1,8 +1,5 @@
 #include "main.h"
 
-#include "VertexBuffer.h"
-#include "IndexBuffer.h"
-
 using namespace glm;
 
 void init()
@@ -68,11 +65,15 @@ int main(int argc, char **argv)
     Geometry shape;
     float * object = shape.createRectangle(1.0,50.0,250.0,250.0);
 
-    unsigned int VertexArrayID;
-    glGenVertexArrays(1, &VertexArrayID);
-    glBindVertexArray(VertexArrayID);
 
+    VertexArray va;
     VertexBuffer vb (object, 4*2*sizeof(float));
+
+
+    VertexBufferLayout layout;
+    layout.Push(2);
+    va.AddBuffer(vb,layout);
+
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
@@ -91,7 +92,7 @@ int main(int argc, char **argv)
         shader.use();
         //active_color = randomNum(); // THis line ,,more frequently or oscilating between two colors.
         shader.setVec4("u_Color",active_color);
-        glBindVertexArray(VertexArrayID);
+        va.Bind();
         ib.Bind();
         // Draw rectangle !
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr); // 4 indices starting at 0 -> 1 rectangle      

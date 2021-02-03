@@ -1,4 +1,5 @@
-
+#ifndef INDEX_BUFFER_INCLUDED
+#define INDEX_BUFFER_INCLUDED
 
 class IndexBuffer
 {
@@ -16,3 +17,5 @@ public:
 
     inline unsigned int GetCount(){return Count;}
 };
+
+#endif
