@@ -64,19 +64,11 @@ int main(int argc, char **argv)
 
     Geometry shape;
     float * object = shape.createRectangle(1.0,50.0,250.0,250.0);
-
-
     VertexArray va;
     VertexBuffer vb (object, 4*2*sizeof(float));
-
-
     VertexBufferLayout layout;
     layout.Push(2);
     va.AddBuffer(vb,layout);
-
-
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
     IndexBuffer ib(shape.GetRectangleIndices(),6);
 

@@ -31,24 +31,24 @@ class VertexBufferLayout
     VertexBufferLayout()
     : Stride(0){}
 
-/*     template<typename T>
+    /*template<typename T>
     void Push(int count)
     {
         static_assert(false);
     }
 
-    template <T> */
+    template <> */
     void Push (unsigned int count)
     {
         Elements.push_back({count,GL_FLOAT, GL_FALSE});
         Stride += VertexBufferElement::GetSizoeOfType(GL_FLOAT) * count;
     }
 
-  /*   template <typename T>
+  /*   template <>
     void Push <unsigned int>(int count,bool normalized, int type)
     {
         Elements.push_back({GL_UNSIGNED_INT,count, GL_FALSE});
-        Stride += VertexBufferElement::GetSizoeOfType(GL_UNSIGNED_INT);
+        Stride += VertexBufferElement::GetSizoeOfType(GL_UNSIGNED_INT) * count ;
     } */
 
     inline const std::vector<VertexBufferElement> GetElements() const {return Elements;}
