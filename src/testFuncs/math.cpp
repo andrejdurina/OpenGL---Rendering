@@ -9,7 +9,7 @@
 using namespace glm;
 
 //This method transforms x,y begin & x,y end coordinates to percentage values of OpenGL.
-float* transformCoord(GLint *viewport, Pixels *COORDs)
+float* transformRectangle(GLint *viewport, Pixels *COORDs)
 {
     //Data check, if in viewport bound
     if (COORDs->start_x > viewport[2] || COORDs->start_y > viewport[3] || COORDs->start_x < viewport[0] || COORDs->start_y < viewport[1] || COORDs->end_x < viewport[0] || COORDs->end_y < viewport[1] || COORDs->end_x > viewport[2] || COORDs->end_y > viewport[3])
@@ -20,37 +20,37 @@ float* transformCoord(GLint *viewport, Pixels *COORDs)
 
     int vp_width_half = viewport[2] / 2;
     int vp_height_half = viewport[3] / 2;
-    float *math_buffer_data ;
-    math_buffer_data = new float [7] ;
+    float *raw_buffer_data ;
+    raw_buffer_data = new float [7] ;
 
      //Load coordinates for drawn rectangle.
-    math_buffer_data[0] = COORDs->start_x;
-    math_buffer_data[1] = COORDs->start_y;
-    math_buffer_data[2] = COORDs->start_x;
-    math_buffer_data[3] = COORDs->end_y;
-    math_buffer_data[4] = COORDs->end_x;
-    math_buffer_data[5] = COORDs->end_y;
-    math_buffer_data[6] = COORDs->end_x;
-    math_buffer_data[7] = COORDs->start_y; 
+    raw_buffer_data[0] = COORDs->start_x;
+    raw_buffer_data[1] = COORDs->start_y;
+    raw_buffer_data[2] = COORDs->start_x;
+    raw_buffer_data[3] = COORDs->end_y;
+    raw_buffer_data[4] = COORDs->end_x;
+    raw_buffer_data[5] = COORDs->end_y;
+    raw_buffer_data[6] = COORDs->end_x;
+    raw_buffer_data[7] = COORDs->start_y; 
 
      // Update sign.
     for (int i = 0; i < 8; i += 2)
     {
-        if (math_buffer_data[i] < vp_width_half)
+        if (raw_buffer_data[i] < vp_width_half)
         {
-            math_buffer_data[i]  =  -viewport[2] + math_buffer_data[i];
+            raw_buffer_data[i]  =  -viewport[2] + raw_buffer_data[i];
         }
-        if (math_buffer_data[i+1] < vp_height_half)
+        if (raw_buffer_data[i+1] < vp_height_half)
         {
-            math_buffer_data[i+1] =  -viewport[3] + math_buffer_data[i+1];
+            raw_buffer_data[i+1] =  -viewport[3] + raw_buffer_data[i+1];
         } 
-          if (math_buffer_data[i] == vp_width_half)
+          if (raw_buffer_data[i] == vp_width_half)
         {
-            math_buffer_data[i]  =  -vp_width_half+ math_buffer_data[i];
+            raw_buffer_data[i]  =  -vp_width_half+ raw_buffer_data[i];
         }
-        if (math_buffer_data[i+1] == vp_height_half)
+        if (raw_buffer_data[i+1] == vp_height_half)
         {
-            math_buffer_data[i+1] =  -vp_height_half + math_buffer_data[i+1];
+            raw_buffer_data[i+1] =  -vp_height_half + raw_buffer_data[i+1];
         } 
     }
     // Convert the pixels values to percentage for OpenGL
@@ -58,15 +58,15 @@ float* transformCoord(GLint *viewport, Pixels *COORDs)
     {
         if(i % 2 == 0 || i == 0)
         {
-            math_buffer_data[i] /= viewport[2];
+            raw_buffer_data[i] /= viewport[2];
         }
         else {
-            math_buffer_data[i] /= viewport[3];
+            raw_buffer_data[i] /= viewport[3];
         }
     }
   
-    return math_buffer_data;
-    delete math_buffer_data;
+    return raw_buffer_data;
+    delete raw_buffer_data;
 }
 
 vec3 hsv2rgb(vec3 source){

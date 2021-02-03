@@ -15,8 +15,7 @@
 
 #include "callbacks/callBacks.hpp"
 
-
-#include "math/math.hpp"
+#include "GenerateObject.h"
 #include "res/texture/texture.h"
 #include "res/shaders/shader.h"
 #include "res/particleSystem/particles.hpp"

@@ -15,7 +15,7 @@ struct Pixels {
     };
 };
 
-float* transformCoord(int *viewport, Pixels *COORDs);
+float* transformRectangle(int *viewport, Pixels *COORDs);
 glm::vec3 hsv2rgb(glm::vec3 source);
 glm::vec4 randomNum();
 timer_t createTimer(int signal);

@@ -1,4 +1,8 @@
 #include "main.h"
+
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+
 using namespace glm;
 
 void init()
@@ -6,7 +10,6 @@ void init()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable (GL_BLEND);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glLineWidth(3.5);
 }
 
 int main(int argc, char **argv)
@@ -43,74 +46,53 @@ int main(int argc, char **argv)
     GLenum err = glewInit();
     if (err != GLEW_OK)
     {
-        fprintf(stderr, "Error: %s \n", glewGetErrorString(err));
+        fprintf(stderr, "GLEW Error: %s \n", glewGetErrorString(err));
         return -1;
     }
     else
     {
-        fprintf(stdout, "Version: %s \n", glewGetString(GLEW_VERSION));
+        fprintf(stdout, "GLEW Version: %s \n", glewGetString(GLEW_VERSION));
     }
-
     //##################################VIEWPORT#######################################################//
     //glViewport(0,0,3840,1080) - Custom viewport for 2 monitors;
+
     glViewport(0,0,s->width,s->height);
-
-    int viewportData[4];
-    glGetIntegerv(GL_VIEWPORT,viewportData);
-
-    Pixels object1(50,50,250,250);
-    
-    float* obj1;
-    obj1 = new float [7];
-    
-    mousePointer(window);
-
-    obj1 = transformCoord(viewportData,&object1);
-    
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+    mousePointer(window);
     init(); 
     
+   
     //Compile shaders
     Shader shader("res/shaders/objectShaders/SimpleVertexShader.vs", "res/shaders/objectShaders/Obj1_FragmentShader.fs");
+
+    Geometry shape;
+    float * object = shape.createRectangle(1.0,50.0,250.0,250.0);
 
     unsigned int VertexArrayID;
     glGenVertexArrays(1, &VertexArrayID);
     glBindVertexArray(VertexArrayID);
 
-    unsigned int VB1;
-    glGenBuffers(1, &VB1);
-    glBindBuffer(GL_ARRAY_BUFFER, VB1);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*4*2, obj1, GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(0);   
-    glVertexAttribPointer( 0, 2, GL_FLOAT, GL_FALSE, 0,0);
+    VertexBuffer vb (object, 4*2*sizeof(float));
 
-    unsigned int indices[] = {
-        0,1,2,2,3,0
-    };
-     
-    unsigned int ibo;
-    glGenBuffers(1,&ibo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ibo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 7*sizeof(unsigned int),&indices[0],GL_STATIC_DRAW);
-    
-    
-    vec4 active_color = vec4(1.0f,0.0f,0.0f,1.0f);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
+
+    IndexBuffer ib(shape.GetRectangleIndices(),6);
 
     unsigned int texture1 , texture2;
     Texture texture;
     texture1 = texture.loadTexture("res/texture/TextureDROP.jpg",GL_RGB);
     texture2 = texture.loadTexture("res/texture/TexturePICK.png",GL_RGBA);
 
+    vec4 active_color = vec4(1.0f,0.0f,0.0f,1.0f);
     do
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         shader.use();
-        active_color = randomNum(); // THis line ,,more frequently or oscilating between two colors.
-        // Sets color of rectangle !
+        //active_color = randomNum(); // THis line ,,more frequently or oscilating between two colors.
         shader.setVec4("u_Color",active_color);
         glBindVertexArray(VertexArrayID);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+        ib.Bind();
         // Draw rectangle !
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr); // 4 indices starting at 0 -> 1 rectangle      
         glfwSwapBuffers(window);
@@ -118,8 +100,6 @@ int main(int argc, char **argv)
     } //Check if the ESC key was pressed or the widow was closed.
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
 
-    delete obj1;
-    //delete active_color;
     glDeleteProgram(shader.ID);
     glfwTerminate();
 }
