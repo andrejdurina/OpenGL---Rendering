@@ -61,38 +61,47 @@ int main(int argc, char **argv)
    
     //Compile shaders
     Shader shader("res/shaders/objectShaders/SimpleVertexShader.vs", "res/shaders/objectShaders/Obj1_FragmentShader.fs");
+    Shader shader2("res/shaders/objectShaders/SimpleVertexShader.vs", "res/shaders/objectShaders/Obj1_FragmentShader.fs");
 
     Geometry shape;
     float * object = shape.createRectangle(1.0,50.0,250.0,250.0);
+    float * object2 = shape.createRectangle(250.0,250.0,450.0,450.0);
     VertexArray va;
-    VertexBuffer vb (object, 4*2*sizeof(float));
+    VertexBuffer vb (object, 4*4*sizeof(float));
+    VertexBuffer vb1 (object2, 4*4*sizeof(float));
     VertexBufferLayout layout;
     layout.Push(2);
+    layout.Push(2);
+
     va.AddBuffer(vb,layout);
+    //va.AddBuffer(vb1,layout);
 
-    IndexBuffer ib(shape.GetRectangleIndices(),6);
+    IndexBuffer ib(shape.GetRectangleIndices(),12);
 
-    unsigned int texture1 , texture2;
-    Texture texture;
-    texture1 = texture.loadTexture("res/texture/TextureDROP.jpg",GL_RGB);
-    texture2 = texture.loadTexture("res/texture/TexturePICK.png",GL_RGBA);
+    Texture texturePICK("renderer/texture/samples/PICK_1.jpg",GL_RGBA);
+    texturePICK.Bind();
+    shader.setInt("u_Texture", 0);
 
+    Texture textureDROP("renderer/texture/samples/PLACE_1.jpg",GL_RGBA);
+    textureDROP.Bind();
+    shader2.setInt("u_Texture",0);
+
+    Renderer render;
     vec4 active_color = vec4(1.0f,0.0f,0.0f,1.0f);
     do
     {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        shader.use();
         //active_color = randomNum(); // THis line ,,more frequently or oscilating between two colors.
-        shader.setVec4("u_Color",active_color);
-        va.Bind();
-        ib.Bind();
-        // Draw rectangle !
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr); // 4 indices starting at 0 -> 1 rectangle      
+        //shader.setVec4("u_Color",active_color);
+        render.Clear();
+        render.Draw(va,ib,shader);
+        //render.Draw(va,ib,shader2);
+        // Draw rectangle !  
         glfwSwapBuffers(window);
         glfwPollEvents();
     } //Check if the ESC key was pressed or the widow was closed.
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
 
     glDeleteProgram(shader.ID);
+    glDeleteProgram(shader2.ID);
     glfwTerminate();
 }
