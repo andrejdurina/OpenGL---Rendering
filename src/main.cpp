@@ -64,7 +64,7 @@ int main(int argc, char **argv)
     Shader shader2("res/shaders/objectShaders/SimpleVertexShader.vs", "res/shaders/objectShaders/Obj1_FragmentShader.fs");
 
     Geometry shape;
-    float * object = shape.createRectangle(1.0,50.0,250.0,250.0);
+    float * object = shape.createRectangle(50.0,50.0,350.0,350.0);
     float * object2 = shape.createRectangle(250.0,250.0,450.0,450.0);
     VertexArray va;
     VertexBuffer vb (object, 4*4*sizeof(float));
@@ -78,11 +78,11 @@ int main(int argc, char **argv)
 
     IndexBuffer ib(shape.GetRectangleIndices(),12);
 
-    Texture texturePICK("renderer/texture/samples/PICK_1.jpg",GL_RGBA);
+    Texture texturePICK("renderer/texture/samples/PICK_1.png",GL_RGBA);
     texturePICK.Bind();
     shader.setInt("u_Texture", 0);
 
-    Texture textureDROP("renderer/texture/samples/PLACE_1.jpg",GL_RGBA);
+    Texture textureDROP("renderer/texture/samples/PLACE_1.png",GL_RGBA);
     textureDROP.Bind();
     shader2.setInt("u_Texture",0);
 
