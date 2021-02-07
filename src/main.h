@@ -16,7 +16,7 @@
 #include "res/shaders/shader.h"
 #include "res/particleSystem/particles.hpp"
 
-#include "renderer/objects/GenerateObject.h"
+#include "renderer/objects/Shape.h"
 #include "renderer/buffers/VertexBuffer.h"
 #include "renderer/buffers/IndexBuffer.h"
 #include "renderer/layout/VertexArray.h"

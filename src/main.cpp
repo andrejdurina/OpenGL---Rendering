@@ -3,9 +3,10 @@
 using namespace glm;
 
 void init()
-{   glEnable(GL_DEPTH_TEST);
+{
+    glEnable(GL_DEPTH_TEST);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable (GL_BLEND);
+    glEnable(GL_BLEND);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
@@ -22,13 +23,13 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    glfwWindowHint(GLFW_SAMPLES, GLFW_DONT_CARE);  
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); 
+    glfwWindowHint(GLFW_SAMPLES, GLFW_DONT_CARE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    
+
     //Open window and create its OpenGL context///////////WINDOW/////////////////////////////
-    GLFWwindow *window; 
+    GLFWwindow *window;
 
     window = glfwCreateWindow(s->width, s->height, "Test", glfwGetPrimaryMonitor(), NULL);
     if (window == NULL)
@@ -37,7 +38,7 @@ int main(int argc, char **argv)
         glfwTerminate();
         return -1;
     }
-   
+
     glfwMakeContextCurrent(window);
     // ////////////////////////////////////// GLEW INIT////////////////////////////////////////////////
     GLenum err = glewInit();
@@ -53,49 +54,53 @@ int main(int argc, char **argv)
     //##################################VIEWPORT#######################################################//
     //glViewport(0,0,3840,1080) - Custom viewport for 2 monitors;
 
-    glViewport(0,0,s->width,s->height);
+    glViewport(0, 0, s->width, s->height);
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
     mousePointer(window);
-    init(); 
-    
-   
+    init();
+
     //Compile shaders
     Shader shader("res/shaders/objectShaders/SimpleVertexShader.vs", "res/shaders/objectShaders/Obj1_FragmentShader.fs");
     Shader shader2("res/shaders/objectShaders/SimpleVertexShader.vs", "res/shaders/objectShaders/Obj1_FragmentShader.fs");
 
     Geometry shape;
-    float * object = shape.createRectangle(50.0,50.0,350.0,350.0);
-    float * object2 = shape.createRectangle(250.0,250.0,450.0,450.0);
+    float *object = shape.createObject(50.0, 50.0, 350.0, 350.0);
+    float *object2 = shape.createObject(250.0, 250.0, 450.0, 450.0);
+
+    fprintf(stdout, "%d\n ", shape.GetCount());
+
     VertexArray va;
-    VertexBuffer vb (object, 4*4*sizeof(float));
-    VertexBuffer vb1 (object2, 4*4*sizeof(float));
+    VertexBuffer vb(object, shape.GetCount()); //** shape.GetCount()); shape. num of objects currently generated);
+    vb.AddObject(object2, 2);
+
     VertexBufferLayout layout;
     layout.Push(2);
     layout.Push(2);
 
-    va.AddBuffer(vb,layout);
-    //va.AddBuffer(vb1,layout);
 
-    IndexBuffer ib(shape.GetRectangleIndices(),12);
+    
+    va.AddBuffer(vb, layout);
 
-    Texture texturePICK("renderer/texture/samples/PICK_1.png",GL_RGBA);
-    texturePICK.Bind();
+    IndexBuffer ib(shape.GetIndices(), shape.GetCount());
+    
+    Texture texturePICK("renderer/texture/samples/PICK_1.png", GL_RGBA);
+    texturePICK.Bind(0);
     shader.setInt("u_Texture", 0);
 
-    Texture textureDROP("renderer/texture/samples/PLACE_1.png",GL_RGBA);
-    textureDROP.Bind();
-    shader2.setInt("u_Texture",0);
+/*     Texture textureDROP("renderer/texture/samples/PICK_1.png",GL_RGBA);
+    textureDROP.Bind(1);
+    shader2.setInt("u_Texture",0);   */
 
     Renderer render;
-    vec4 active_color = vec4(1.0f,0.0f,0.0f,1.0f);
+    vec4 active_color = vec4(1.0f, 0.0f, 0.0f, 1.0f);
     do
     {
         //active_color = randomNum(); // THis line ,,more frequently or oscilating between two colors.
         //shader.setVec4("u_Color",active_color);
         render.Clear();
-        render.Draw(va,ib,shader);
+        render.Draw(va, ib, shader, shape.GetCount());
         //render.Draw(va,ib,shader2);
-        // Draw rectangle !  
+        // Draw rectangle !
         glfwSwapBuffers(window);
         glfwPollEvents();
     } //Check if the ESC key was pressed or the widow was closed.

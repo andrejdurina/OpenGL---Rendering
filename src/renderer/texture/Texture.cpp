@@ -3,9 +3,9 @@
 #include "stb/stb_image.h"
 
 Texture::Texture(const std::string& path, GLenum mode )
-   : RendererID(0), FilePath(path) , LocalBuffer(nullptr), Width(512), Height(512), BPP(0)
+   : RendererID(0), FilePath(path) , LocalBuffer(nullptr), Width(0), Height(0), BPP(0)
 {
-    stbi_set_flip_vertically_on_load(1);
+    //stbi_set_flip_vertically_on_load(1);
     
     LocalBuffer = stbi_load(path.c_str() ,&Width, &Height, &BPP, 4);;
 
@@ -21,7 +21,7 @@ Texture::Texture(const std::string& path, GLenum mode )
     {
         glTexImage2D(GL_TEXTURE_2D, 0 ,mode, Width, Height, 0, mode, GL_UNSIGNED_BYTE, LocalBuffer);
         glGenerateMipmap(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, 0);
+        glBindTexture(GL_TEXTURE_2D, RendererID);
         fprintf(stdout,"Loaded some texture \n");
         stbi_image_free(LocalBuffer);
     }
