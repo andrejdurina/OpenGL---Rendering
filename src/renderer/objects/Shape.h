@@ -13,7 +13,7 @@ class Geometry
 
 private:
     unsigned int objectindices[6] = {
-    0, 1, 2, 2, 3, 0};
+    0, 1, 2, 2, 3, 0 };
     unsigned int objectCount = 0;
 
 public:

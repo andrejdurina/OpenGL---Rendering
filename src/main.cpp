@@ -65,29 +65,34 @@ int main(int argc, char **argv)
 
     Geometry shape;
     float *object = shape.createObject(50.0, 50.0, 350.0, 350.0);
-    float *object2 = shape.createObject(250.0, 250.0, 450.0, 450.0);
+    float *object2 = shape.createObject(850.0, 750.0, 1000.0, 900.0);
+   // float *object3 = shape.createObject(0.0, 0.0, 100.0, 100.0);
 
     fprintf(stdout, "%d\n ", shape.GetCount());
 
     VertexArray va;
+
     VertexBuffer vb(object, shape.GetCount()); //** shape.GetCount()); shape. num of objects currently generated);
-    vb.AddObject(object2, 2);
+    
+   vb.AddObject(object2);
+   // vb.AddObject(object3);
 
     VertexBufferLayout layout;
     layout.Push(2);
     layout.Push(2);
 
 
-    
     va.AddBuffer(vb, layout);
 
     IndexBuffer ib(shape.GetIndices(), shape.GetCount());
     
     Texture texturePICK("renderer/texture/samples/PICK_1.png", GL_RGBA);
+
     texturePICK.Bind(0);
     shader.setInt("u_Texture", 0);
 
-/*     Texture textureDROP("renderer/texture/samples/PICK_1.png",GL_RGBA);
+/*  Texture textureDROP("renderer/texture/samples/PLACE_1.png",GL_RGBA);
+
     textureDROP.Bind(1);
     shader2.setInt("u_Texture",0);   */
 
@@ -99,6 +104,7 @@ int main(int argc, char **argv)
         //shader.setVec4("u_Color",active_color);
         render.Clear();
         render.Draw(va, ib, shader, shape.GetCount());
+        //render.Draw(va, ib, shader, shape.GetCount());
         //render.Draw(va,ib,shader2);
         // Draw rectangle !
         glfwSwapBuffers(window);

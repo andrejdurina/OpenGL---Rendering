@@ -1,6 +1,7 @@
 #ifndef TEXTURE_INCLUDED
 #define TEXTURE_INCLUDED
-#include "../Renderer.h"
+#include <GL/glew.h>
+#include <string>
 
 class Texture {
 

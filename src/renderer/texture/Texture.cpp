@@ -22,12 +22,13 @@ Texture::Texture(const std::string& path, GLenum mode )
         glTexImage2D(GL_TEXTURE_2D, 0 ,mode, Width, Height, 0, mode, GL_UNSIGNED_BYTE, LocalBuffer);
         glGenerateMipmap(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, RendererID);
-        fprintf(stdout,"Loaded some texture \n");
+        fprintf(stdout,"\n Loaded some texture \n");
         stbi_image_free(LocalBuffer);
     }
     else 
     {
-        fprintf(stdout,"Couldnt load texture \n");
+        fprintf(stdout,"\n Couldnt load texture \n");
+        stbi_image_free(LocalBuffer);
     }
 
 }
@@ -38,8 +39,7 @@ Texture::~Texture()
 }
 void Texture::Bind(unsigned int slot) const
 {
-    glActiveTexture(GL_TEXTURE0 + slot);
-    glBindTexture(GL_TEXTURE_2D, RendererID);
+     glBindTextureUnit(slot, RendererID);
 }
 
 void Texture::Unbind()

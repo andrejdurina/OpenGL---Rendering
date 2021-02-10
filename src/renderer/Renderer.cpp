@@ -3,10 +3,10 @@
 
 void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader, unsigned int count) const
 {
-    shader.Use();
+    shader.Bind();
     ib.Bind();
     va.Bind();
-    glDrawElements(GL_TRIANGLES, 6 * count, GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_TRIANGLES, 6 * count  , GL_UNSIGNED_INT, nullptr);
     
 }
 void Renderer::Clear() const

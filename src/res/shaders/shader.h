@@ -98,7 +98,7 @@ public:
     }
     // activate the shader
     // ------------------------------------------------------------------------
-    void Use() const
+    void Bind() const
     { 
         glUseProgram(ID); 
     }
