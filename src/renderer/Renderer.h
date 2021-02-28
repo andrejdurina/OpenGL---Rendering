@@ -4,7 +4,6 @@
 #include <GL/glew.h>
 #include "../res/shaders/shader.h"
 #include "buffers/Buffer.h"
-#include "buffers/VertexBuffer.h"
 #include "layout/VertexArray.h"
 
 class Renderer 

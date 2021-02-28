@@ -1,6 +1,5 @@
 #include "Renderer.h"
 
-
 void Renderer::Draw(const VertexArray& va, const Buffer& ib, const Shader& shader, unsigned int count) const
 {
     shader.Bind();
