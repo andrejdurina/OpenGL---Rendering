@@ -17,8 +17,9 @@
 #include "res/particleSystem/particles.hpp"
 
 #include "renderer/objects/Shape.h"
-#include "renderer/buffers/VertexBuffer.h"
-#include "renderer/buffers/IndexBuffer.h"
+/* #include "renderer/buffers/VertexBuffer.h"
+#include "renderer/buffers/IndexBuffer.h" */
+#include "renderer/buffers/Buffer.h"
 #include "renderer/layout/VertexArray.h"
 #include "renderer/texture/Texture.h"
 #include "renderer/Renderer.h"

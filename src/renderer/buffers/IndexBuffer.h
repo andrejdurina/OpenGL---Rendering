@@ -12,6 +12,7 @@ public:
     IndexBuffer(const unsigned int* data, unsigned int count);
     ~IndexBuffer();
 
+    void AddObject(unsigned int *object);
     void Bind() const;
     void Unbind() const;
     inline unsigned int GetCount(){return Count;}
