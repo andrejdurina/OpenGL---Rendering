@@ -65,34 +65,22 @@ int main(int argc, char **argv)
 
     Geometry shape;
     float *object = shape.createObject(50.0, 50.0, 350.0, 350.0);
-   // float *object2 = shape.createObject(850.0, 750.0, 1000.0, 900.0);
-   // float *object3 = shape.createObject(0.0, 0.0, 100.0, 100.0);
+
 
     fprintf(stdout, "%d\n ", shape.GetCount());
 
     VertexArray va;
 
-    //VertexBuffer vb(object, shape.GetCount()); //** shape.GetCount()); shape. num of objects currently generated);
-
     Buffer VertexBuffer(GL_ARRAY_BUFFER, shape.GetCount());
     Buffer IndexBuffer(GL_ELEMENT_ARRAY_BUFFER, shape.GetCount());
-    //vb.AddObject(object2);
-   // vb.AddObject(object3);
+
     VertexBuffer.AddObject(object);
-    //VertexBuffer.AddObject(object2);
+    IndexBuffer.AddObject(shape.GetIndices());
+
     VertexBufferLayout layout;
     layout.Push(2);
     layout.Push(2);
     va.AddBuffer(VertexBuffer, layout);
-
-/* 
-    IndexBuffer ib(shape.GetIndices(), shape.GetCount());
-    ib.AddObject(shape.GetIndices()); */
-
-    //  ib.AddObject();
-
-    IndexBuffer.AddObject(shape.GetIndices());
-    //IndexBuffer.AddObject(shape.GetIndices());
 
     Texture texturePICK("renderer/texture/samples/PICK_1.png", GL_RGBA);
 
@@ -108,12 +96,8 @@ int main(int argc, char **argv)
     vec4 active_color = vec4(1.0f, 0.0f, 0.0f, 1.0f);
     do
     {
-        //active_color = randomNum(); // THis line ,,more frequently or oscilating between two colors.
-        //shader.setVec4("u_Color",active_color);
         render.Clear();
         render.Draw(va, IndexBuffer, shader, shape.GetCount());
-        //render.Draw(va, ib, shader, shape.GetCount());
-        //render.Draw(va,ib,shader2);
         // Draw rectangle !
         glfwSwapBuffers(window);
         glfwPollEvents();
