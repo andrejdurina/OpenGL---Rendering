@@ -27,7 +27,7 @@ void Buffer::Unbind() const
 void Buffer::AddObject(void* object )
 {   SetCount();
     int offset = Size * Count;
-    fprintf(stdout,"\n<Buffer>Objects offset : %d  //[= 16]\n <VertexBuffer> Object no. : %d\n Object Size : %d \n",offset,Count,Size);
+    fprintf(stdout,"\n<Buffer>\n Objects offset : %d  //[= 16]\n > Object no. : %d\n Object Size : %d \n",offset,Count,Size);
     Bind();
     glBufferSubData(Type, offset, Size, object);
 }
