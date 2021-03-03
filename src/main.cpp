@@ -92,23 +92,18 @@ int main(int argc, char **argv)
 
 
     Texture texturePICK("renderer/texture/samples/PICK_1.png", GL_RGBA);
-
-    texturePICK.Bind(0);
     shader.setInt("u_Texture", 0);
 
     Texture textureDROP("renderer/texture/samples/PLACE_1.png",GL_RGBA);
-
-    textureDROP.Bind(0);
     shader2.setInt("u_Texture",0);  
 
     Renderer render;
-    // vec4 active_color = vec4(1.0f, 0.0f, 0.0f, 1.0f);
     do
     {
-        //active_color = randomNum(); // THis line ,,more frequently or oscilating between two colors.
-        //shader.setVec4("u_Color",active_color);
         render.Clear();
+        texturePICK.Bind(0);
         render.Draw(va, ib, shader, shape.GetCount());
+        textureDROP.Bind(0);
         render.Draw(va2, ib2, shader2, shape.GetCount());
         // Draw rectangle !
         glfwSwapBuffers(window);
