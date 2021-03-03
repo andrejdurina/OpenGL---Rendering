@@ -5,7 +5,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "particles.hpp"
+#include "particles.h"
 #include <glm/glm.hpp>
 
 using namespace glm;

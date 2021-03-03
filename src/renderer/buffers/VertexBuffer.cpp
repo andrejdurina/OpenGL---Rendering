@@ -28,9 +28,9 @@ void VertexBuffer::Unbind() const
 void VertexBuffer::AddObject(float* object )
 {   
     //SetCount();
-    int offset = 16 * sizeof(float);
+    unsigned int offset = 16 * sizeof(float);
     unsigned int size =  16 * sizeof(float);
-    fprintf(stdout,"\n<VertexBuffer>Objects offset : %d  //[= 16]\n <VertexBuffer> Object no. : %d\n Object Size : %d \n",offset,GetCount(),size);
+    fprintf(stdout,"\n<VertexBuffer>Objects offset : %d  //[= 16 floats]\n <VertexBuffer> Object no. : %d\n Object Size : %d \n",offset,GetCount(),size);
     Bind();
     glBufferSubData(GL_ARRAY_BUFFER, offset, size, object);
 }
