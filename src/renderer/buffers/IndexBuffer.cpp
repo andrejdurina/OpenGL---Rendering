@@ -23,11 +23,3 @@ void IndexBuffer::Unbind() const
 {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
-void IndexBuffer::AddObject(unsigned int* object )
-{   
-    unsigned int size = 7 * sizeof(unsigned int);
-    int offset = size * GetCount();
-    fprintf(stdout,"\n<IndexBuffer> Objects offset : %d  //[= 7]\n <IndexBuffer> Object no. : %d\n Object Size : %d \n",offset,GetCount(),size);
-    Bind();
-    glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, offset, size, object);
-}

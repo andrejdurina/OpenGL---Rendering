@@ -66,7 +66,6 @@ int main(int argc, char **argv)
     Geometry shape;
     float *object = shape.createRectangle(50.0, 50.0, 350.0, 350.0);
     float *object2 = shape.createRectangle(850.0, 750.0, 1000.0, 900.0);
-   // float *object3 = shape.createObject(0.0, 0.0, 100.0, 100.0);
 
     fprintf(stdout, "%d\n ", shape.GetCount());
 
@@ -74,7 +73,7 @@ int main(int argc, char **argv)
 
     VertexBuffer vb(object, shape.GetCount()); //** shape.GetCount()); shape. num of objects currently generated);
     vb.AddObject(object2);
-   // vb.AddObject(object3);
+
     VertexBufferLayout layout;
     layout.Push(2);
     layout.Push(2);
@@ -83,7 +82,7 @@ int main(int argc, char **argv)
 
 
     IndexBuffer ib(shape.GetIndices(), shape.GetCount());
-    //ib.AddObject(shape.GetIndices());
+
 
     Texture texturePICK("renderer/texture/samples/PICK_1.png", GL_RGBA);
 
