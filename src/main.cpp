@@ -64,8 +64,8 @@ int main(int argc, char **argv)
     Shader shader2("res/shaders/objectShaders/SimpleVertexShader.vs", "res/shaders/objectShaders/Obj1_FragmentShader.fs");
 
     Geometry shape;
-    float *object = shape.createObject(50.0, 50.0, 350.0, 350.0);
-   // float *object2 = shape.createObject(850.0, 750.0, 1000.0, 900.0);
+    float *object = shape.createRectangle(50.0, 50.0, 350.0, 350.0);
+    float *object2 = shape.createRectangle(850.0, 750.0, 1000.0, 900.0);
    // float *object3 = shape.createObject(0.0, 0.0, 100.0, 100.0);
 
     fprintf(stdout, "%d\n ", shape.GetCount());
@@ -73,11 +73,12 @@ int main(int argc, char **argv)
     VertexArray va;
 
     VertexBuffer vb(object, shape.GetCount()); //** shape.GetCount()); shape. num of objects currently generated);
-    //vb.AddObject(object2);
+    vb.AddObject(object2);
    // vb.AddObject(object3);
     VertexBufferLayout layout;
     layout.Push(2);
     layout.Push(2);
+  
     va.AddBuffer(vb, layout);
 
 
@@ -95,15 +96,13 @@ int main(int argc, char **argv)
     shader2.setInt("u_Texture",0);   */
 
     Renderer render;
-    vec4 active_color = vec4(1.0f, 0.0f, 0.0f, 1.0f);
+    // vec4 active_color = vec4(1.0f, 0.0f, 0.0f, 1.0f);
     do
     {
         //active_color = randomNum(); // THis line ,,more frequently or oscilating between two colors.
         //shader.setVec4("u_Color",active_color);
         render.Clear();
         render.Draw(va, ib, shader, shape.GetCount());
-        //render.Draw(va, ib, shader, shape.GetCount());
-        //render.Draw(va,ib,shader2);
         // Draw rectangle !
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -111,6 +110,6 @@ int main(int argc, char **argv)
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
 
     glDeleteProgram(shader.ID);
-    glDeleteProgram(shader2.ID);
+   // glDeleteProgram(shader2.ID);
     glfwTerminate();
 }

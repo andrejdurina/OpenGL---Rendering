@@ -13,6 +13,7 @@ public:
 
     void AddObject(float* object);
     inline unsigned int GetCount(){return Count;};
+    inline void SetCount(){Count++;};
     void Bind() const;
     void Unbind() const;
 };
