@@ -1,5 +1,6 @@
-#ifndef PARTICLES_HPP
-#define PARTICLES_HPP
+#ifndef PARTICLES_INCLUDED
+#define PARTICLES_INCLUDED
+#include <GLFW/glfw3.h>
 
 typedef struct POINT
 {

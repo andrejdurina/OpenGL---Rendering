@@ -1,5 +1,5 @@
-#ifndef GENERATE_OBJECT_INCLUDE
-#define GENERATE_OBJECT_INCLUDE
+#ifndef OBJECT_INCLUDE
+#define OBJECT_INCLUDE
 
 #include <stdio.h>
 #include <glm/glm.hpp>
