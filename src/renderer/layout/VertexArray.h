@@ -2,7 +2,7 @@
 #define VERTEX_ARRAY_INCLUDED
 
 #include "VertexBufferLayout.h"
-#include "../buffers/Buffer.h"
+#include "../buffers/VertexBuffer.h"
 class VertexArray{
 
     private:
@@ -11,7 +11,7 @@ class VertexArray{
     public:
     VertexArray();
     ~VertexArray();
-    void AddBuffer(const Buffer& vb, const VertexBufferLayout& layout);
+    void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
     void Bind () const ;
     void Unbind () const ;
 };
