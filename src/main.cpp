@@ -72,27 +72,17 @@ int main(int argc, char **argv)
 
     VertexArray va;
 
-    //VertexBuffer vb(object, shape.GetCount()); //** shape.GetCount()); shape. num of objects currently generated);
-
-    Buffer VertexBuffer(GL_ARRAY_BUFFER, shape.GetCount());
-    Buffer IndexBuffer(GL_ELEMENT_ARRAY_BUFFER, shape.GetCount());
+    VertexBuffer vb(object, shape.GetCount()); //** shape.GetCount()); shape. num of objects currently generated);
     //vb.AddObject(object2);
    // vb.AddObject(object3);
-    VertexBuffer.AddObject(object);
-    //VertexBuffer.AddObject(object2);
     VertexBufferLayout layout;
     layout.Push(2);
     layout.Push(2);
-    va.AddBuffer(VertexBuffer, layout);
+    va.AddBuffer(vb, layout);
 
-/* 
+
     IndexBuffer ib(shape.GetIndices(), shape.GetCount());
-    ib.AddObject(shape.GetIndices()); */
-
-    //  ib.AddObject();
-
-    IndexBuffer.AddObject(shape.GetIndices());
-    //IndexBuffer.AddObject(shape.GetIndices());
+    //ib.AddObject(shape.GetIndices());
 
     Texture texturePICK("renderer/texture/samples/PICK_1.png", GL_RGBA);
 
@@ -111,7 +101,7 @@ int main(int argc, char **argv)
         //active_color = randomNum(); // THis line ,,more frequently or oscilating between two colors.
         //shader.setVec4("u_Color",active_color);
         render.Clear();
-        render.Draw(va, IndexBuffer, shader, shape.GetCount());
+        render.Draw(va, ib, shader, shape.GetCount());
         //render.Draw(va, ib, shader, shape.GetCount());
         //render.Draw(va,ib,shader2);
         // Draw rectangle !
