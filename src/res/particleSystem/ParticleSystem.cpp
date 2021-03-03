@@ -1,6 +1,6 @@
 #include "ParticleSystem.h"
 
-#include "src/math/math.hpp"
+#include "src/testFuncs/math.h"
 
 #include <glm/gtc/constants.hpp>
 #define GLM_ENABLE_EXPERIMENTAL

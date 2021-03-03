@@ -1,6 +1,6 @@
-#ifndef MATH_HPP
-#define MATH_HPP
-
+#ifndef MATH_INCLUDED
+#define MATH_INCLUDED
+#include <glm/glm.hpp>
 struct Pixels {
 
     float start_x;
