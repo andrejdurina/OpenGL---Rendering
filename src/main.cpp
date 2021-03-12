@@ -56,12 +56,14 @@ int main(int argc, char **argv)
 
     glViewport(0, 0, s->width, s->height);
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-    mousePointer(window);
+    Mouse mouse;
+    mouse.mousePointer(window);
     init();
 
     //Compile shaders
     Shader shader("res/shaders/objectShaders/ObjectShader.vs", "res/shaders/objectShaders/ObjectShader.fs");
     Shader shader2("res/shaders/objectShaders/ObjectShader.vs", "res/shaders/objectShaders/ObjectShader.fs");
+    Shader shaderParticles("res/shaders/particlesShaders/particleShader.vs","res/shaders/particlesShaders/particleShader.fs");
 
     Geometry shape;
     float *object = shape.createRectangle(50.0, 50.0, 350.0, 350.0);
@@ -98,6 +100,10 @@ int main(int argc, char **argv)
     shader2.setInt("u_Texture",0);  
 
     Renderer render;
+
+    ParticleSystem particles;
+
+    particles.Initialize(shaderParticles);
     do
     {
         render.Clear();
@@ -105,7 +111,11 @@ int main(int argc, char **argv)
         render.Draw(va, ib, shader, shape.GetCount());
         textureDROP.Bind(0);
         render.Draw(va2, ib2, shader2, shape.GetCount());
-        // Draw rectangle !
+
+/*         particles.Emit();
+        particles.Draw() 
+        particles.Update(); */
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     } //Check if the ESC key was pressed or the widow was closed.

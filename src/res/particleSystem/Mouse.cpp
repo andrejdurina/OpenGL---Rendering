@@ -29,7 +29,7 @@ int Mouse::mousePointer (GLFWwindow* window)
     glfwSetCursor(window,glfwCreateCursor(&image,0,0));
 
     glfwGetCursorPos(window,&mpos.X,&mpos.Y);
-    printf("X : %d \n Y: %d",mpos.X,mpos.Y);
+    printf("X : %f \n Y: %f",mpos.X,mpos.Y);
     glLoadIdentity();
     glTranslatef(mpos.X,mpos.Y,0);
 

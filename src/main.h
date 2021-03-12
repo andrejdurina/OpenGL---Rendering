@@ -15,6 +15,7 @@
 
 #include "res/shaders/shader.h"
 #include "res/particleSystem/ParticleSystem.h"
+#include "res/particleSystem/Mouse.h"
 
 #include "renderer/objects/Shape.h"
 #include "renderer/buffers/VertexBuffer.h"

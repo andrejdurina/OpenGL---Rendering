@@ -9,9 +9,11 @@
 #include <GL/glut.h>
 
 #include <glm/glm.hpp>
-#include <glm/gtc/constants.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/compatibility.hpp>
 
+#include "../shaders/shader.h"
+#include "../Random.h"
 using namespace glm;
 
 struct ParticleProps 
@@ -42,13 +44,25 @@ class ParticleSystem
     int oldTimeSinceStart = 0;
     std::vector<Particle> particlePool;
     unsigned int poolIndex = 99;
-    uint ParticleShaderViewProj, ParticleShaderTransform,ParticleShaderColor;
+    unsigned int ParticleShaderTransform,ParticleShaderColor;
+    unsigned int ParticleVA;
 
+        float vertices[8] = {
+        -0.25f, -0.25f,
+         0.25f, -0.25f,
+         0.25f, 0.25f,
+        -0.25f, 0.25f,
+    };
+        unsigned int indices [7] = 
+    {
+        0,1,2,2,3,0
+    };
  public:
     ParticleSystem();
-    void Update(float ts);
-    void Initialize();
+    void Update();
+    void Initialize(Shader& shader);
     void Emit (const ParticleProps& particleProps);
+    void Draw(Shader& shader);
     float ElapsedTime();
 
 };

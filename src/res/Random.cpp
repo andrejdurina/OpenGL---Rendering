@@ -1,5 +1,8 @@
 #include "Random.h"
 
-    static std::mt19937 randomEngine;
-    static std::uniform_int_distribution<std::mt19937::result_type> distribution;
+float Random::Float()
+    {  
+       srand(static_cast<unsigned int>(clock()));
+       return float(rand()) / (float(RAND_MAX) + 0.5);
+    }
  
