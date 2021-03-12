@@ -6,9 +6,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "particles.h"
+#include "Mouse.h"
 
-int mousePointer (GLFWwindow* window)
+int Mouse::mousePointer (GLFWwindow* window)
 {   
     int width;
     int height;
@@ -25,15 +25,13 @@ int mousePointer (GLFWwindow* window)
     glOrtho(0.0f,width,height,0.0f,-1.0f,1.0f);
     glMatrixMode(GL_MODELVIEW);
 
-    POINT mpos;
+    COORD mpos;
     glfwSetCursor(window,glfwCreateCursor(&image,0,0));
 
-    glfwGetCursorPos(window,&mpos.x,&mpos.y);
-
+    glfwGetCursorPos(window,&mpos.X,&mpos.Y);
+    printf("X : %d \n Y: %d",mpos.X,mpos.Y);
     glLoadIdentity();
-    glTranslatef(mpos.x,mpos.y,0);
-
-    draw_mouse_pointer();
+    glTranslatef(mpos.X,mpos.Y,0);
 
     return 1;
 }

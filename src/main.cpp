@@ -60,8 +60,8 @@ int main(int argc, char **argv)
     init();
 
     //Compile shaders
-    Shader shader("res/shaders/objectShaders/SimpleVertexShader.vs", "res/shaders/objectShaders/Obj1_FragmentShader.fs");
-    Shader shader2("res/shaders/objectShaders/SimpleVertexShader.vs", "res/shaders/objectShaders/Obj1_FragmentShader.fs");
+    Shader shader("res/shaders/objectShaders/ObjectShader.vs", "res/shaders/objectShaders/ObjectShader.fs");
+    Shader shader2("res/shaders/objectShaders/ObjectShader.vs", "res/shaders/objectShaders/ObjectShader.fs");
 
     Geometry shape;
     float *object = shape.createRectangle(50.0, 50.0, 350.0, 350.0);

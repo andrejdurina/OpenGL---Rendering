@@ -1,15 +1,15 @@
 all: submodule main
 
 submodule:
-		g++ -c ./res/particleSystem/particles.cpp
+		g++ -c ./res/particleSystem/ParticleSystem.cpp
 		g++ -c ./callbacks/callBacks.cpp
 
 main:
-		g++ -o main main.cpp ./res/particleSystem/mouse.cpp ./renderer/buffers/IndexBuffer.cpp ./renderer/buffers/VertexBuffer.cpp ./renderer/layout/VertexArray.cpp ./renderer/objects/Shape.cpp ./renderer/texture/Texture.cpp ./renderer/Renderer.cpp callBacks.o particles.o -lglut -lGLEW -lglfw -lGLU -lGL -lpthread -lX11 -lrt
+		g++ -o main main.cpp ./res/particleSystem/Mouse.cpp ./renderer/buffers/IndexBuffer.cpp ./renderer/buffers/VertexBuffer.cpp ./renderer/layout/VertexArray.cpp ./renderer/objects/Shape.cpp ./renderer/texture/Texture.cpp ./renderer/Renderer.cpp callBacks.o ParticleSystem.o -lglut -lGLEW -lglfw -lGLU -lGL -lpthread -lX11 -lrt
 		clear
 
 clean:
-		rm particles.o
+		rm ParticleSystem.o
 		rm callBacks.o
 		rm main
 		clear
