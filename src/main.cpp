@@ -10,6 +10,14 @@ void init()
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
+
+void Refresh ( int value )
+{
+    glutPostRedisplay();
+
+}
+
+
 int main(int argc, char **argv)
 {
     glfwSetMonitorCallback(monitor_callback); //Mnitor connected/dsconnected callback.
@@ -122,6 +130,7 @@ int main(int argc, char **argv)
 
         glfwSwapBuffers(window);
         glfwPollEvents();
+
         FPS++;
         final_time = glfwGetTime();
                 if(final_time - last_time > 0)
@@ -137,3 +146,4 @@ int main(int argc, char **argv)
     glDeleteProgram(shader2.ID);
     glfwTerminate();
 }
+
