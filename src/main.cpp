@@ -40,6 +40,9 @@ int main(int argc, char **argv)
     }
 
     glfwMakeContextCurrent(window);
+    //TIMER
+    double last_time = glfwGetTime(),final_time = 0,FPS;
+
     // ////////////////////////////////////// GLEW INIT////////////////////////////////////////////////
     GLenum err = glewInit();
     if (err != GLEW_OK)
@@ -119,6 +122,14 @@ int main(int argc, char **argv)
 
         glfwSwapBuffers(window);
         glfwPollEvents();
+        FPS++;
+        final_time = glfwGetTime();
+                if(final_time - last_time > 0)
+        {
+            fprintf(stdout,"FPS : %f \n", (FPS / ( final_time - last_time)));
+            FPS =0;
+            last_time = final_time;
+        }
     } //Check if the ESC key was pressed or the widow was closed.
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
 
