@@ -62,7 +62,7 @@ class ParticleSystem
     void Update();
     void Initialize(Shader& shader);
     void Emit (const ParticleProps& particleProps);
-    void Draw(Shader& shader);
+    void Draw();
     float ElapsedTime();
 
 };

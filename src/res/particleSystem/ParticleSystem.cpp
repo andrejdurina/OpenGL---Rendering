@@ -52,7 +52,7 @@ void ParticleSystem::Initialize(Shader& shader)
 
 }   
 
-void ParticleSystem::Draw(Shader& shader)
+void ParticleSystem::Draw()
 {
 
 	for (auto& particle : particlePool)

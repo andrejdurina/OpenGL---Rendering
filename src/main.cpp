@@ -102,6 +102,7 @@ int main(int argc, char **argv)
     Renderer render;
 
     ParticleSystem particles;
+    ParticleProps particleProps;
 
     particles.Initialize(shaderParticles);
     do
@@ -112,8 +113,8 @@ int main(int argc, char **argv)
         textureDROP.Bind(0);
         render.Draw(va2, ib2, shader2, shape.GetCount());
 
-/*         particles.Emit();
-        particles.Draw() 
+        /* particles.Emit(particleProps);
+        particles.Draw(shaderParticles);
         particles.Update(); */
 
         glfwSwapBuffers(window);
