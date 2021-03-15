@@ -2,13 +2,12 @@
 #include <GL/glew.h>
 #include <stdio.h>
 
-IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count)
-:Count(count)
+IndexBuffer::IndexBuffer(const unsigned int* data)
 {
     //ASSERT(sizeof(unsigned int)== sizeof(GLuint));
     glGenBuffers(1, &RendererID);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, RendererID);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 7 * sizeof(unsigned int) * Count, data, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 7 * sizeof(unsigned int) , data, GL_STATIC_DRAW);
 }
 IndexBuffer::~IndexBuffer()
 {

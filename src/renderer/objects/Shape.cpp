@@ -1,6 +1,6 @@
 #include "Shape.h"
 
-float* Geometry::createRectangle(float start_x, float start_y, float end_x, float end_y)
+float* Shape::AddObject(float start_x, float start_y, float end_x, float end_y)
 {
 
         int viewport[4];
@@ -72,4 +72,17 @@ float* Geometry::createRectangle(float start_x, float start_y, float end_x, floa
         SetCount();
         return rectangle;
         delete rectangle;
+    }
+
+    float* Shape::AddParticle()
+    {
+
+       float vertices[8] = {
+        -0.25f, -0.25f,
+         0.25f, -0.25f,
+         0.25f, 0.25f,
+        -0.25f, 0.25f,
+         };
+
+         return vertices;
     }

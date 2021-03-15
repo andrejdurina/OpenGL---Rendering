@@ -23,6 +23,9 @@ struct ParticleProps
     vec4 Color;
     float LifeTime;
     float SizeBegin,SizeEnd,SizeVariation;
+
+    ParticleProps()
+    {};
 };
 
 class ParticleSystem
@@ -39,6 +42,10 @@ class ParticleSystem
         float LifeTime = 1.0f;
         float LifeRemaining = 0.0f;
         bool Active = false;
+
+    Particle()
+    {};
+
     };
 
     int oldTimeSinceStart = 0;
@@ -47,20 +54,10 @@ class ParticleSystem
     unsigned int ParticleShaderTransform,ParticleShaderColor;
     unsigned int ParticleVA;
 
-        float vertices[8] = {
-        -0.25f, -0.25f,
-         0.25f, -0.25f,
-         0.25f, 0.25f,
-        -0.25f, 0.25f,
-    };
-        unsigned int indices [7] = 
-    {
-        0,1,2,2,3,0
-    };
  public:
     ParticleSystem();
     void Update();
-    void Initialize(Shader& shader);
+    void InitializeShader(Shader& shader);
     void Emit (const ParticleProps& particleProps);
     void Draw();
     float ElapsedTime();

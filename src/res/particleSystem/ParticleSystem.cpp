@@ -27,28 +27,11 @@ void ParticleSystem::Update()
         particle.Rotation += 0.02 * ts;
     }
 }
-void ParticleSystem::Initialize(Shader& shader)
+void ParticleSystem::InitializeShader(Shader& shader)
 {
-
-    glCreateVertexArrays(1,&ParticleVA);
-    glBindVertexArray(ParticleVA);
-
-    unsigned int ParticleVB,ParticleIB;
-    glCreateBuffers(1,&ParticleVB);
-    glBindBuffer(GL_ARRAY_BUFFER, ParticleVB);
-    glBufferData(GL_ARRAY_BUFFER,sizeof(vertices),vertices,GL_STATIC_DRAW);
-
-    glEnableVertexArrayAttrib(ParticleVB,0);
-    glVertexAttribPointer(0,2,GL_FLOAT,GL_FALSE,2*sizeof(float),0);
-
-    glCreateBuffers(1,&ParticleIB);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ParticleIB);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(indices),indices,GL_STATIC_DRAW);
 
 		ParticleShaderTransform = glGetUniformLocation(shader.GetID(), "u_Transform");
 		ParticleShaderColor = glGetUniformLocation(shader.GetID(), "u_Color");
-
-        shader.Bind();
 
 }   
 

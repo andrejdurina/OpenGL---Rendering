@@ -3,7 +3,7 @@
 using namespace glm;
 
 void init()
-{
+{   
     glEnable(GL_DEPTH_TEST);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
@@ -14,7 +14,7 @@ void init()
 void Refresh ( int value )
 {
     glutPostRedisplay();
-
+    glutTimerFunc(1000/30,Refresh,0);
 }
 
 
@@ -64,6 +64,7 @@ int main(int argc, char **argv)
     }
     //##################################VIEWPORT#######################################################//
     //glViewport(0,0,3840,1080) - Custom viewport for 2 monitors;
+    glutInit(&argc,argv);
 
     glViewport(0, 0, s->width, s->height);
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
@@ -76,32 +77,35 @@ int main(int argc, char **argv)
     Shader shader2("res/shaders/objectShaders/ObjectShader.vs", "res/shaders/objectShaders/ObjectShader.fs");
     Shader shaderParticles("res/shaders/particlesShaders/particleShader.vs","res/shaders/particlesShaders/particleShader.fs");
 
-    Geometry shape;
-    float *object = shape.createRectangle(50.0, 50.0, 350.0, 350.0);
-    float *object2 = shape.createRectangle(1000.0, 500.0, 1300.0, 800.0);
+    Shape shape;
+    float *object = shape.AddObject(50.0, 50.0, 350.0, 350.0);
+    float *object2 = shape.AddObject(1000.0, 500.0, 1300.0, 800.0);
+    float *particle = shape.AddParticle();
 
     fprintf(stdout, "  Number of currently generated objects %d\n ", shape.GetCount());
 
     VertexArray va;
     VertexArray va2;
+    VertexArray vapar;
 
-    VertexBuffer vb(object, shape.GetCount()); //** shape.GetCount()); shape. num of objects currently generated);
-    VertexBuffer vb2(object2, shape.GetCount()); //** shape.GetCount()); shape. num of objects currently generated);
+    VertexBuffer vb(object, 16); // PICK
+    VertexBuffer vb2(object2, 16);//PLACE
+    VertexBuffer vbpar(particle,6);// PARTICLES
     
-    VertexBufferLayout layout;
-    layout.Push(2);
-    layout.Push(2);
-
-    VertexBufferLayout layout2;
-    layout2.Push(2);
-    layout2.Push(2);
+    VertexBufferLayout objlayout;
+    objlayout.Push(2);
+    objlayout.Push(2);
   
-    va.AddBuffer(vb, layout);
-    va2.AddBuffer(vb2, layout2);
+    VertexBufferLayout parlayout;
+    parlayout.Push(2);
 
+    va.AddBuffer(vb, objlayout);
+    va2.AddBuffer(vb2, objlayout);
+    vapar.AddBuffer(vbpar,parlayout);
 
-    IndexBuffer ib(shape.GetIndices(), shape.GetCount());
-    IndexBuffer ib2(shape.GetIndices(), shape.GetCount());
+    IndexBuffer ib(shape.GetIndices());
+    IndexBuffer ib2(shape.GetIndices());
+    IndexBuffer ibpar(shape.GetIndices());
 
 
     Texture texturePICK("renderer/texture/samples/PICK_1.png", GL_RGBA);
@@ -115,30 +119,31 @@ int main(int argc, char **argv)
     ParticleSystem particles;
     ParticleProps particleProps;
 
-    particles.Initialize(shaderParticles);
+    particles.InitializeShader(shaderParticles);
     do
     {
         render.Clear();
         texturePICK.Bind(0);
-        render.Draw(va, ib, shader, shape.GetCount());
+        render.Draw(va, ib, shader);
         textureDROP.Bind(0);
-        render.Draw(va2, ib2, shader2, shape.GetCount());
+        render.Draw(va2, ib2, shader2);
 
-        /* particles.Emit(particleProps);
-        particles.Draw(shaderParticles);
-        particles.Update(); */
+        render.Draw(vapar,ibpar,shaderParticles);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
+
+        glutTimerFunc(1000/30,Refresh,0);
 
         FPS++;
         final_time = glfwGetTime();
                 if(final_time - last_time > 0)
         {
             fprintf(stdout,"FPS : %f \n", (FPS / ( final_time - last_time)));
-            FPS =0;
+            FPS = 0;
             last_time = final_time;
         }
+
     } //Check if the ESC key was pressed or the widow was closed.
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
 

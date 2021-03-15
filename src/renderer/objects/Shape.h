@@ -7,7 +7,7 @@
 
 using namespace glm;
 
-class Geometry
+class Shape
 {
 
 
@@ -17,7 +17,8 @@ private:
     unsigned int objectCount = 0;
 
 public:
-    float *createRectangle(float x0, float y0, float x1, float y1);
+    float *AddObject(float x0, float y0, float x1, float y1);
+    float *AddParticle();
     inline unsigned int* GetIndices(){return rectangleindices;};
     void SetCount(){objectCount += 1;};
     void ResetCount(){objectCount = 0;};
