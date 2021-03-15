@@ -77,12 +77,18 @@ float* Shape::AddObject(float start_x, float start_y, float end_x, float end_y)
     float* Shape::AddParticle()
     {
 
-       float vertices[8] = {
-        -0.25f, -0.25f,
-         0.25f, -0.25f,
-         0.25f, 0.25f,
-        -0.25f, 0.25f,
-         };
+        float* vertices = new float[8];
+        //vertices = {-0.25f, -0.25f ,0.25f, -0.25f, 0.25f, 0.25f,-0.25f, 0.25f};
+         vertices[0]= -0.25f;
+         vertices[1]= -0.25f;
+         vertices[2]= 0.25f;
+         vertices[3]= -0.25f;
+         vertices[4]=  0.25f;
+         vertices[5]= 0.25f;
+         vertices[6]= -0.25f;
+         vertices[7]=  0.25f;
 
-         return vertices;
+        SetCount();
+        return vertices;
+        delete vertices;
     }

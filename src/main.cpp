@@ -90,7 +90,7 @@ int main(int argc, char **argv)
 
     VertexBuffer vb(object, 16); // PICK
     VertexBuffer vb2(object2, 16);//PLACE
-    VertexBuffer vbpar(particle,6);// PARTICLES
+    VertexBuffer vbpar(particle,8);// PARTICLES
     
     VertexBufferLayout objlayout;
     objlayout.Push(2);
